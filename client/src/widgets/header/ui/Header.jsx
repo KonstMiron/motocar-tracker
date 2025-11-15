@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 export const Header = () => (
@@ -7,9 +8,10 @@ export const Header = () => (
       <span>MotoCar <b>Tracker</b></span>
     </div>
 
-    <div className={styles.user}>
-      <span>Witamy, MIRON</span>
-      <button>Wyloguj</button>
-    </div>
+    <nav className={styles.nav}>
+      <Link to="/">Home</Link>
+      <Link to="/login">Logowanie</Link>
+      <Link to="/register">Rejestracja</Link>
+    </nav>
   </header>
 );

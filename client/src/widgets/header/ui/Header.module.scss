@@ -39,4 +39,19 @@
       }
     }
   }
+  .nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  a {
+    font-size: 14px;
+    color: $light;
+    font-weight: 500;
+
+    &:hover {
+      color: $text-main;
+    }
+  }
+}
 }
