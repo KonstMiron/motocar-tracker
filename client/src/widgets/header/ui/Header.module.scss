@@ -1,57 +1,122 @@
 @use "../../../app/styles/variables" as *;
 
 .header {
+  height: 80px;
+  padding: 0 40px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
   background: $bg-color;
+  color: $light;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo a {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.logoMark {
   color: $text-main;
+}
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 22px;
+.logoText {
+  color: $light;
+}
 
-    img {
-      width: 36px;
-      height: 36px;
-    }
-  }
-
-  .user {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    button {
-      background: $primary;
-      color: white;
-      border: none;
-      border-radius: $radius;
-      padding: 8px 16px;
-      font-weight: 600;
-      transition: 0.2s;
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-  }
-  .nav {
+.nav {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 
   a {
     font-size: 14px;
-    color: $light;
-    font-weight: 500;
+    color: rgba($light, 0.8);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s;
 
     &:hover {
       color: $text-main;
     }
   }
 }
+
+.activeLink {
+  color: $text-main;
+  border-bottom-color: $text-main;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.welcome {
+  font-size: 14px;
+  color: rgba($light, 0.9);
+}
+
+.logoutBtn {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: $primary;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.authLinks {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  a {
+    font-size: 14px;
+    color: rgba($light, 0.8);
+    text-decoration: none;
+    transition: 0.2s;
+
+    &:hover {
+      color: $text-main;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .welcome {
+    display: none;
+  }
 }

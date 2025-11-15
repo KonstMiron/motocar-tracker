@@ -3,7 +3,7 @@ import s from './RegisterPage.module.scss';
 
 export const RegisterPage = () => {
   const [form, setForm] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -14,7 +14,7 @@ export const RegisterPage = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
@@ -22,8 +22,35 @@ export const RegisterPage = () => {
       return;
     }
 
-    // тут потім підключимо /auth/register
-    console.log('register data:', form);
+    try {
+      const res = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 201) {
+        alert('Konto zostało utworzone!');
+        console.log('REGISTER OK:', data);
+        window.location.href = '/login';
+      } else if (res.status === 409) {
+        alert('Użytkownik z takim emailem lub loginem już istnieje');
+      } else {
+        alert('Błąd serwera');
+        console.error(data);
+      }
+    } catch (err) {
+      console.error('Register error:', err);
+      alert('Błąd połączenia z serwerem');
+    }
   };
 
   return (
@@ -34,12 +61,12 @@ export const RegisterPage = () => {
 
         <form onSubmit={handleSubmit} className={s.form}>
           <label className={s.field}>
-            <span>Imię / Nick</span>
+            <span>Login / Nick</span>
             <input
               type="text"
-              name="name"
+              name="username"
               placeholder="Miron"
-              value={form.name}
+              value={form.username}
               onChange={handleChange}
               required
             />

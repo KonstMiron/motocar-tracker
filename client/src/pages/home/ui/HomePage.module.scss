@@ -1,18 +1,16 @@
 @use "sass:color";
 @use "../../../app/styles/variables" as *;
 
-/* --- Основний блок --- */
 .hero {
   position: relative;
   min-height: calc(100vh - 80px);
-  background: $bg-color; /* базовий чорний фон позаду */
+  background: $bg-color;
   overflow: hidden;
   display: grid;
   place-items: center;
   padding: 48px 20px;
 }
 
-/* --- фон: ліва діагональ + права фотографія --- */
 .layerLeft,
 .layerRight {
   position: absolute;
@@ -21,7 +19,6 @@
   z-index: 0;
 }
 
-/* Зелена діагональ ліва */
 .layerLeft {
   background: linear-gradient(
     110deg,
@@ -32,7 +29,6 @@
   z-index: 0;
 }
 
-/* Фото в правій частині */
 .layerRight {
   background:
     linear-gradient(
@@ -47,7 +43,6 @@
   filter: saturate(1.05);
 }
 
-/* Мотоцикл у центрі */
 .bike {
   position: absolute;
   z-index: 1;
@@ -69,7 +64,6 @@
   50%      { transform: translateY(-4px); }
 }
 
-/* Контент */
 .container {
   position: relative;
   text-align: left;
@@ -135,7 +129,6 @@
   }
 }
 
-/* Адаптив */
 @media (max-width: 900px) {
   .layerLeft {
     background: linear-gradient(

@@ -9,10 +9,41 @@ export const LoginPage = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // тут пізніше підключимо бекенд (API /auth/login)
-    console.log('login data:', form);
+
+    try {
+      const res = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 200) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        alert('Zalogowano pomyślnie!');
+        console.log('LOGIN OK:', data);
+
+        window.location.href = '/';
+      } else if (res.status === 400 || res.status === 401) {
+        alert(data.message || 'Nieprawidłowy email lub hasło');
+      } else {
+        alert('Błąd serwera');
+        console.error(data);
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Błąd połączenia z serwerem');
+    }
   };
 
   return (
