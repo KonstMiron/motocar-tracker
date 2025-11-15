@@ -1,0 +1,170 @@
+@use "sass:color";
+@use "../../../app/styles/variables" as *;
+
+/* --- Основний блок --- */
+.hero {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  background: $bg-color; /* базовий чорний фон позаду */
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 48px 20px;
+}
+
+/* --- фон: ліва діагональ + права фотографія --- */
+.layerLeft,
+.layerRight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Зелена діагональ ліва */
+.layerLeft {
+  background: linear-gradient(
+    110deg,
+    rgba(25, 85, 35, 0.95) 0%,
+    rgba(25, 85, 35, 0.95) 55%,
+    transparent 55%
+  );
+  z-index: 0;
+}
+
+/* Фото в правій частині */
+.layerRight {
+  background:
+    linear-gradient(
+      290deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.45) 35%,
+      transparent 36%
+    ),
+    url('/hero-bg.png') right center / cover no-repeat;
+  opacity: 0.9;
+  z-index: 0;
+  filter: saturate(1.05);
+}
+
+/* Мотоцикл у центрі */
+.bike {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+
+  img {
+    width: min(65vw, 900px);
+    height: auto;
+    filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.5));
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(6px); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Контент */
+.container {
+  position: relative;
+  text-align: left;
+  width: min(1200px, 92vw);
+  z-index: 2;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  color: #e8efe9;
+  font-size: clamp(36px, 7vw, 96px);
+
+  span { color: $text-main; }
+}
+
+.subtitle {
+  margin: 0 0 28px;
+  color: $light;
+  font-size: clamp(14px, 2.2vw, 20px);
+  max-width: 48ch;
+}
+
+.btnPrimary {
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 28px;
+  font-weight: 700;
+  font-size: 16px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+
+  &:hover { opacity: 0.9; transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
+
+.ctaRow { margin: 24px 0 48px; }
+
+/* Нижня навігація */
+.navRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 10px 0;
+
+  button {
+    border: none;
+    border-radius: 999px;
+    background: $text-main;
+    color: $bg-color;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: background 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      background: color.adjust($text-main, $lightness: 10%);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* Адаптив */
+@media (max-width: 900px) {
+  .layerLeft {
+    background: linear-gradient(
+      120deg,
+      rgba(25, 85, 35, 0.9) 0%,
+      rgba(25, 85, 35, 0.9) 70%,
+      transparent 70%
+    );
+  }
+
+  .layerRight {
+    background:
+      linear-gradient(
+        290deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.45) 40%,
+        transparent 41%
+      ),
+      url('/hero-bg.jpg') 60% center / cover no-repeat;
+    opacity: 0.8;
+  }
+
+  .bike img {
+    width: min(95vw, 980px);
+  }
+}
+
+@media (max-width: 640px) {
+  .subtitle { max-width: 36ch; }
+  .ctaRow { margin-bottom: 32px; }
+  .navRow { gap: 10px; }
+}

@@ -1,0 +1,18 @@
+@use "./variables" as *;
+
+:root {
+  font-family: "Poppins", sans-serif;
+  color: $light;
+  background-color: $bg-color;
+}
+
+* { box-sizing: border-box; }
+
+body, html, #root {
+  height: 100%;
+  margin: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { cursor: pointer; }

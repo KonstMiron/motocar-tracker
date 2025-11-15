@@ -1,0 +1,42 @@
+@use "../../../app/styles/variables" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: $bg-color;
+  color: $text-main;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+
+    img {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    button {
+      background: $primary;
+      color: white;
+      border: none;
+      border-radius: $radius;
+      padding: 8px 16px;
+      font-weight: 600;
+      transition: 0.2s;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
