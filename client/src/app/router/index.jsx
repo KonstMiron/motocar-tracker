@@ -3,7 +3,7 @@ import { Header } from '../../widgets/header';
 import { HomePage } from '../../pages/home';
 import { LoginPage } from '../../pages/auth/login';
 import { RegisterPage } from '../../pages/auth/register';
-
+import { VehiclesPage } from '../../pages/vehicles';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -29,6 +29,15 @@ const router = createBrowserRouter([
       <>
         <Header />
         <RegisterPage />
+      </>
+    ),
+  },
+  {
+    path: '/vehicles',
+    element: (
+      <>
+        <Header />
+        <VehiclesPage />
       </>
     ),
   },

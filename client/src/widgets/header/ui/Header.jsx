@@ -44,6 +44,12 @@ export const Header = () => {
         >
           Home
         </Link>
+        <Link
+          to="/vehicles"
+          className={location.pathname === '/vehicles' ? s.activeLink : undefined}
+        >
+          Moje pojazdy
+        </Link>
       </nav>
 
       <div className={s.right}>
