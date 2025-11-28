@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 
 import authRouter from './routes/auth.js';
+import vehiclesRouter from './routes/vehicles.js';
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
+
+app.use('/api/vehicles', vehiclesRouter);
 
 mongoose
   .connect(MONGO_URI)
