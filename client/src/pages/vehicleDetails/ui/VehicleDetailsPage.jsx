@@ -6,6 +6,10 @@ import { ConfirmDeleteModal } from './ConfirmDeleteModal';
 import { MileageBlock } from './MileageBlock';
 import { FuelBlock } from './FuelBlock';
 import { ExpenseBlock } from './ExpenseBlock';
+import { SummaryBlock } from './SummaryBlock';
+import { MileChart } from './charts/MileChart';
+import { FuelChart } from './charts/FuelChart';
+import { ExpenseChart } from './charts/ExpenseChart';
 
 export const VehicleDetailsPage = () => {
   const { id } = useParams();
@@ -67,6 +71,11 @@ export const VehicleDetailsPage = () => {
       <MileageBlock vehicleId={vehicle._id} />
       <FuelBlock vehicleId={vehicle._id} />
       <ExpenseBlock vehicleId={vehicle._id} />
+      <SummaryBlock vehicleId={vehicle._id} />
+
+      <MileChart vehicleId={vehicle._id} />
+      <FuelChart vehicleId={vehicle._id} />
+      <ExpenseChart vehicleId={vehicle._id} />
       <div className={s.actions}>
         <button
           className={s.secondary}

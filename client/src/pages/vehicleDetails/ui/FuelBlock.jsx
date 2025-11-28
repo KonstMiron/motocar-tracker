@@ -9,7 +9,9 @@ export const FuelBlock = ({ vehicleId }) => {
 
   const fetchEntries = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/fuel`);
+      const res = await fetch(
+        `http://localhost:8080/api/vehicles/${vehicleId}/fuel`
+      );
       const data = await res.json();
       setEntries(data);
     } catch (err) {
@@ -23,6 +25,10 @@ export const FuelBlock = ({ vehicleId }) => {
     fetchEntries();
   }, []);
 
+  const sorted = [...entries].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
   return (
     <section className={s.block}>
       <div className={s.headerRow}>
@@ -34,7 +40,7 @@ export const FuelBlock = ({ vehicleId }) => {
 
       {loading ? (
         <p className={s.loading}>Ładowanie...</p>
-      ) : entries.length === 0 ? (
+      ) : sorted.length === 0 ? (
         <p className={s.empty}>Brak zapisów tankowania.</p>
       ) : (
         <table className={s.table}>
@@ -48,9 +54,9 @@ export const FuelBlock = ({ vehicleId }) => {
             </tr>
           </thead>
           <tbody>
-            {entries.map((e) => (
+            {sorted.map((e) => (
               <tr key={e._id}>
-                <td>{new Date(e.date).toLocaleDateString()}</td>
+                <td>{new Date(e.date).toLocaleDateString('pl-PL')}</td>
                 <td>{e.odometer} km</td>
                 <td>{e.liters}</td>
                 <td>{e.station || '—'}</td>

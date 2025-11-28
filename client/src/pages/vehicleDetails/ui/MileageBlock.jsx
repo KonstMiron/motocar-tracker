@@ -9,7 +9,9 @@ export const MileageBlock = ({ vehicleId }) => {
 
   const fetchEntries = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/mileage`);
+      const res = await fetch(
+        `http://localhost:8080/api/vehicles/${vehicleId}/mileage`
+      );
       const data = await res.json();
       setEntries(data);
     } catch (err) {
@@ -23,6 +25,11 @@ export const MileageBlock = ({ vehicleId }) => {
     fetchEntries();
   }, []);
 
+  // Сортуємо по даті: новіші зверху
+  const sorted = [...entries].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
   return (
     <section className={s.block}>
       <div className={s.headerRow}>
@@ -34,7 +41,7 @@ export const MileageBlock = ({ vehicleId }) => {
 
       {loading ? (
         <p className={s.loading}>Ładowanie...</p>
-      ) : entries.length === 0 ? (
+      ) : sorted.length === 0 ? (
         <p className={s.empty}>Brak zapisów.</p>
       ) : (
         <table className={s.table}>
@@ -46,9 +53,9 @@ export const MileageBlock = ({ vehicleId }) => {
             </tr>
           </thead>
           <tbody>
-            {entries.map((e) => (
+            {sorted.map((e) => (
               <tr key={e._id}>
-                <td>{new Date(e.date).toLocaleDateString()}</td>
+                <td>{new Date(e.date).toLocaleDateString('pl-PL')}</td>
                 <td>{e.odometer} km</td>
                 <td>{e.note || '—'}</td>
               </tr>

@@ -239,4 +239,48 @@ router.post('/:id/expenses', async (req, res) => {
   }
 });
 
+// GET /api/vehicles/:id/summary - podsumowanie pojazdu
+router.get('/:id/summary', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 1. Prób
+    const lastMileage = await MileageEntry.findOne({ vehicleId: id })
+      .sort({ odometer: -1 });
+
+    const totalMileage = lastMileage ? lastMileage.odometer : 0;
+
+    // 2. Tankowanie
+    const fuelEntries = await FuelEntry.find({ vehicleId: id });
+    const totalFuelLiters = fuelEntries.reduce((s, e) => s + e.liters, 0);
+    const totalFuelCost = fuelEntries.reduce((s, e) => {
+      if (e.totalCost) return s + e.totalCost;
+      if (e.pricePerLiter) return s + e.pricePerLiter * e.liters;
+      return s;
+    }, 0);
+
+    // 3. Wydatki
+    const expenses = await ExpenseEntry.find({ vehicleId: id });
+    const totalExpenses = expenses.reduce((s, e) => s + e.amount, 0);
+
+    const consumption =
+      totalMileage > 0 ? (totalFuelLiters / totalMileage) * 100 : 0;
+
+    const costPerKm =
+      totalMileage > 0 ? (totalExpenses + totalFuelCost) / totalMileage : 0;
+
+    return res.json({
+      totalMileage,
+      totalFuelLiters,
+      totalFuelCost,
+      totalExpenses,
+      consumption: Number(consumption.toFixed(2)),
+      costPerKm: Number(costPerKm.toFixed(2)),
+    });
+  } catch (err) {
+    console.error('Summary error:', err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
 export default router;

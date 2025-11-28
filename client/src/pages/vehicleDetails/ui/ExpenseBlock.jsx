@@ -24,7 +24,9 @@ export const ExpenseBlock = ({ vehicleId }) => {
 
   const fetchEntries = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/expenses`);
+      const res = await fetch(
+        `http://localhost:8080/api/vehicles/${vehicleId}/expenses`
+      );
       const data = await res.json();
       setEntries(data);
     } catch (err) {
@@ -38,7 +40,11 @@ export const ExpenseBlock = ({ vehicleId }) => {
     fetchEntries();
   }, []);
 
-  const total = entries.reduce((sum, e) => sum + (e.amount || 0), 0);
+  const sorted = [...entries].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
+  const total = sorted.reduce((sum, e) => sum + (e.amount || 0), 0);
 
   return (
     <section className={s.block}>
@@ -54,7 +60,7 @@ export const ExpenseBlock = ({ vehicleId }) => {
 
       {loading ? (
         <p className={s.loading}>Ładowanie...</p>
-      ) : entries.length === 0 ? (
+      ) : sorted.length === 0 ? (
         <p className={s.empty}>Brak zapisów wydatków.</p>
       ) : (
         <table className={s.table}>
@@ -68,9 +74,9 @@ export const ExpenseBlock = ({ vehicleId }) => {
             </tr>
           </thead>
           <tbody>
-            {entries.map((e) => (
+            {sorted.map((e) => (
               <tr key={e._id}>
-                <td>{new Date(e.date).toLocaleDateString()}</td>
+                <td>{new Date(e.date).toLocaleDateString('pl-PL')}</td>
                 <td>{categoryLabel(e.category)}</td>
                 <td>{e.amount.toFixed(2)} zł</td>
                 <td>{e.description || '—'}</td>

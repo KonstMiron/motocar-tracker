@@ -1,0 +1,24 @@
+@use "../../../../app/styles/variables" as *;
+
+.chartBlock {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: #0d0d0d;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+
+  h3 {
+    margin: 0 0 16px;
+    color: $text-main;
+  }
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 280px;
+}
+
+.empty {
+  color: rgba($light, 0.7);
+  padding: 12px 0;
+}
