@@ -4,6 +4,7 @@ import { HomePage } from '../../pages/home';
 import { LoginPage } from '../../pages/auth/login';
 import { RegisterPage } from '../../pages/auth/register';
 import { VehiclesPage } from '../../pages/vehicles';
+import { VehicleDetailsPage } from '../../pages/vehicleDetails';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -38,6 +39,15 @@ const router = createBrowserRouter([
       <>
         <Header />
         <VehiclesPage />
+      </>
+    ),
+  },
+  {
+    path: '/vehicles/:id',
+    element: (
+      <>
+        <Header />
+        <VehicleDetailsPage />
       </>
     ),
   },

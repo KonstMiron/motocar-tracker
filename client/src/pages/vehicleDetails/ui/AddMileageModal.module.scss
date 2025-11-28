@@ -1,0 +1,62 @@
+@use "../../../app/styles/variables" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: grid;
+  place-items: center;
+  z-index: 200;
+}
+
+.modal {
+  background: #111;
+  padding: 24px;
+  border-radius: 16px;
+  width: min(400px, 90vw);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: $light;
+
+  h2 {
+    margin: 0 0 16px;
+    color: $text-main;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  input {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: $light;
+  }
+}
+
+.actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel {
+  background: rgba(255,255,255,0.12);
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.submit {
+  background: $primary;
+  padding: 8px 16px;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}

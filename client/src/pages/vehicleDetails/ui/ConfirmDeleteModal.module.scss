@@ -1,0 +1,58 @@
+@use "../../../app/styles/variables" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  z-index: 200;
+}
+
+.modal {
+  background: #111;
+  padding: 24px;
+  border-radius: 16px;
+  width: min(380px, 90vw);
+  color: $light;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  h2 {
+    margin: 0 0 10px;
+    color: #e74c3c;
+  }
+
+  p {
+    margin: 0 0 20px;
+    color: rgba($light, 0.75);
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  cursor: pointer;
+  color: $light;
+}
+
+.delete {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: #c0392b;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}

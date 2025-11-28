@@ -1,0 +1,55 @@
+@use "../../../app/styles/variables" as *;
+
+.block {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: #0d0d0d;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    color: $text-main;
+  }
+}
+
+.addBtn {
+  background: $primary;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  th {
+    color: rgba($light, 0.7);
+    text-align: left;
+  }
+
+  td {
+    color: $light;
+    font-size: 15px;
+  }
+}
+
+.empty {
+  color: rgba($light, 0.7);
+  font-size: 14px;
+}

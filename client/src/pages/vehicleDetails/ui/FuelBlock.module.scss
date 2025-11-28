@@ -1,0 +1,61 @@
+@use "../../../app/styles/variables" as *;
+
+.block {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: #0d0d0d;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    color: $text-main;
+  }
+}
+
+.addBtn {
+  background: $primary;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 14px;
+  }
+
+  th {
+    color: rgba($light, 0.7);
+    text-align: left;
+  }
+
+  td {
+    color: $light;
+  }
+}
+
+.empty {
+  font-size: 14px;
+  color: rgba($light,0.75);
+}
+
+.loading {
+  font-size: 14px;
+  color: rgba($light,0.75);
+}

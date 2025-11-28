@@ -53,7 +53,12 @@ export const VehiclesPage = () => {
               </div>
 
               <div className={s.actions}>
-                <button className={s.secondary}>Szczegóły</button>
+                <button
+                  className={s.secondary}
+                  onClick={() => (window.location.href = `/vehicles/${v._id}`)}
+                >
+                  Szczegóły
+              </button>
               </div>
             </li>
           ))}
