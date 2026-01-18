@@ -16,19 +16,10 @@ export const HomePage = () => {
         </h1>
 
         <p className={s.subtitle}>
-          Zarządzaj wydatkami pojazdu w łatwy sposób.
+          Zarządzaj wydatkami pojazdu w łatwy sposób
         </p>
 
-        <div className={s.ctaRow}>
-          <button className={s.btnPrimary}>Profil</button>
-        </div>
-
-        <nav className={s.navRow}>
-          <button>Home</button>
-          <button>Dodaj pojazd</button>
-          <button>Moje pojazdy</button>
-          <button>Wydatki</button>
-        </nav>
+       
       </div>
     </main>
   );

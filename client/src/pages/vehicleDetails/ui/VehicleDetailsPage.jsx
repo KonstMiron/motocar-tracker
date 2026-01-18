@@ -79,6 +79,19 @@ export const VehicleDetailsPage = () => {
       <div className={s.actions}>
         <button
           className={s.secondary}
+          onClick={() => window.open(`http://localhost:8080/api/export/vehicle/${vehicle._id}.csv`, "_blank")}
+        >
+          Export CSV
+        </button>
+
+        <button
+          className={s.secondary}
+          onClick={() => window.open(`http://localhost:8080/api/export/vehicle/${vehicle._id}.pdf`, "_blank")}
+        >
+          Export PDF
+        </button>
+        <button
+          className={s.secondary}
           onClick={() => setIsEditOpen(true)}
         >
           Edytuj

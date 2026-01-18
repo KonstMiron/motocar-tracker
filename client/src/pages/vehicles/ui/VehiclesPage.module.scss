@@ -102,6 +102,26 @@
     color: $text-main;
   }
 }
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.exportBtn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #1f7a3a; // можеш замінити на свій $primary
+  color: #fff;
+  transition: transform .15s ease, opacity .15s ease;
+
+  &:hover { opacity: .92; transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
 
 @media (max-width: 768px) {
   .page {

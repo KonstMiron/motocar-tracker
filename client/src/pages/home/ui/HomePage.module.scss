@@ -78,7 +78,9 @@
   line-height: 0.95;
   color: #e8efe9;
   font-size: clamp(36px, 7vw, 96px);
-
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(0, 0, 0, 0.4);
   span { color: $text-main; }
 }
 
@@ -87,6 +89,9 @@
   color: $light;
   font-size: clamp(14px, 2.2vw, 20px);
   max-width: 48ch;
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .btnPrimary {

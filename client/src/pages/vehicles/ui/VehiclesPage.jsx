@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './VehiclesPage.module.scss';
 import { AddVehicleModal } from './AddVehicleModal';
 
 export const VehiclesPage = () => {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
 
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || 'null');
 
   const fetchVehicles = async () => {
-    if (!user) return;
-
     try {
+      if (!user) return;
+
       const res = await fetch(`http://localhost:8080/api/vehicles/${user.id}`);
       const data = await res.json();
       setVehicles(data);
@@ -27,12 +29,30 @@ export const VehiclesPage = () => {
     fetchVehicles();
   }, []);
 
+  const exportPdf = (id) => {
+    window.open(
+      `http://localhost:8080/api/export/vehicle/${id}.pdf`,
+      '_blank'
+    );
+  };
+
+  const exportCsv = (id) => {
+    window.open(
+      `http://localhost:8080/api/export/vehicle/${id}.csv`,
+      '_blank'
+    );
+  };
+
   return (
     <main className={s.page}>
       <div className={s.headerRow}>
         <h1>Moje pojazdy</h1>
 
-        <button className={s.addBtn} onClick={() => setIsModalOpen(true)}>
+        <button
+          className={s.addBtn}
+          onClick={() => setIsAddOpen(true)}
+          type="button"
+        >
           Dodaj pojazd
         </button>
       </div>
@@ -54,21 +74,38 @@ export const VehiclesPage = () => {
 
               <div className={s.actions}>
                 <button
+                  className={s.exportBtn}
+                  type="button"
+                  onClick={() => exportPdf(v._id)}
+                >
+                  PDF
+                </button>
+
+                <button
+                  className={s.exportBtn}
+                  type="button"
+                  onClick={() => exportCsv(v._id)}
+                >
+                  CSV
+                </button>
+
+                <button
                   className={s.secondary}
-                  onClick={() => (window.location.href = `/vehicles/${v._id}`)}
+                  type="button"
+                  onClick={() => navigate(`/vehicles/${v._id}`)}
                 >
                   Szczegóły
-              </button>
+                </button>
               </div>
             </li>
           ))}
         </ul>
       )}
 
-      {isModalOpen && (
+      {isAddOpen && (
         <AddVehicleModal
-          onClose={() => setIsModalOpen(false)}
-          onAdded={fetchVehicles}
+          onClose={() => setIsAddOpen(false)}
+          onAdded={() => fetchVehicles()}
         />
       )}
     </main>
