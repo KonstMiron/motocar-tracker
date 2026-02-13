@@ -16,7 +16,7 @@ export const AddMileageModal = ({ vehicleId, onClose, onAdded }) => {
     e.preventDefault();
 
     try {
-      await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/mileage`, {
+      const res = await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/mileage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -26,8 +26,12 @@ export const AddMileageModal = ({ vehicleId, onClose, onAdded }) => {
         }),
       });
 
-      onAdded();
-      onClose();
+      if (res.ok) {
+        await onAdded();
+        onClose();
+      } else {
+        console.error('Błąd serwera при додаванні пробігу');
+      }
     } catch (err) {
       console.error('Mileage add error:', err);
     }

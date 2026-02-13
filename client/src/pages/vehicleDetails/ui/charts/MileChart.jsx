@@ -21,12 +21,11 @@ export const MileChart = ({ vehicleId }) => {
 
     const converted = raw
       .map((e) => ({
-        date: new Date(e.date),        // зберігаємо Date
+        date: new Date(e.date), 
         odometer: e.odometer
       }))
-      .sort((a, b) => a.date - b.date) // сортуємо по Date
+      .sort((a, b) => a.date - b.date)
       .map((e) => ({
-        // робимо окремий label для осі
         dateLabel: e.date.toLocaleDateString("pl-PL"),
         odometer: e.odometer
       }));

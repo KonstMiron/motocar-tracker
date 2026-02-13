@@ -115,14 +115,39 @@
   padding: 10px 14px;
   font-weight: 700;
   cursor: pointer;
-  background: #1f7a3a; // можеш замінити на свій $primary
+  background: #1f7a3a;
   color: #fff;
   transition: transform .15s ease, opacity .15s ease;
 
   &:hover { opacity: .92; transform: translateY(-1px); }
   &:active { transform: translateY(0); }
 }
+.notifications {
+  background: #730909;
+  border: 1px solid #ffffff;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+.notificationItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ad0e0e;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 0;
+}
 
+.confirmBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 @media (max-width: 768px) {
   .page {
     padding: 20px 16px;

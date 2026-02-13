@@ -17,6 +17,7 @@ export const VehicleDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const fetchVehicle = async () => {
     try {
@@ -30,9 +31,14 @@ export const VehicleDetailsPage = () => {
     }
   };
 
+  const handleDataChange = () => {
+    fetchVehicle();
+    setRefreshKey(prev => prev + 1);
+  };
+
   useEffect(() => {
     fetchVehicle();
-  }, []);
+  }, [id]);
 
   if (loading) return <div className={s.loading}>Ładowanie...</div>;
   if (!vehicle) return <div className={s.error}>Nie znaleziono pojazdu...</div>;
@@ -42,7 +48,6 @@ export const VehicleDetailsPage = () => {
       await fetch(`http://localhost:8080/api/vehicles/${vehicle._id}`, {
         method: 'DELETE',
       });
-
       window.location.href = '/vehicles';
     } catch (err) {
       console.error('Delete error:', err);
@@ -68,14 +73,16 @@ export const VehicleDetailsPage = () => {
         </div>
       </div>
 
-      <MileageBlock vehicleId={vehicle._id} />
-      <FuelBlock vehicleId={vehicle._id} />
-      <ExpenseBlock vehicleId={vehicle._id} />
-      <SummaryBlock vehicleId={vehicle._id} />
+      <MileageBlock vehicleId={vehicle._id} onAdded={handleDataChange} />
+      <FuelBlock vehicleId={vehicle._id} onAdded={handleDataChange} />
+      <ExpenseBlock vehicleId={vehicle._id} onAdded={handleDataChange} />
+      
+      <SummaryBlock key={`summary-${refreshKey}`} vehicleId={vehicle._id} />
 
-      <MileChart vehicleId={vehicle._id} />
-      <FuelChart vehicleId={vehicle._id} />
-      <ExpenseChart vehicleId={vehicle._id} />
+      <MileChart key={`mile-${refreshKey}`} vehicleId={vehicle._id} />
+      <FuelChart key={`fuel-${refreshKey}`} vehicleId={vehicle._id} />
+      <ExpenseChart key={`expense-${refreshKey}`} vehicleId={vehicle._id} />
+
       <div className={s.actions}>
         <button
           className={s.secondary}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import s from './MileageBlock.module.scss';
 import { AddMileageModal } from './AddMileageModal';
 
-export const MileageBlock = ({ vehicleId }) => {
+export const MileageBlock = ({ vehicleId, onAdded }) => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -21,14 +21,20 @@ export const MileageBlock = ({ vehicleId }) => {
     }
   };
 
-  useEffect(() => {
-    fetchEntries();
-  }, []);
-
-  // Сортуємо по даті: новіші зверху
   const sorted = [...entries].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
+
+
+  useEffect(() => {
+    fetchEntries();
+  }, [vehicleId]);
+
+  const handleAdded = () => {
+    fetchEntries();
+    if (onAdded) onAdded();
+  };
+
 
   return (
     <section className={s.block}>
@@ -68,7 +74,7 @@ export const MileageBlock = ({ vehicleId }) => {
         <AddMileageModal
           vehicleId={vehicleId}
           onClose={() => setIsAddOpen(false)}
-          onAdded={fetchEntries}
+          onAdded={handleAdded}
         />
       )}
     </section>

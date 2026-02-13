@@ -7,7 +7,7 @@ export const VehiclesPage = () => {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAddOpen, setIsAddOpen] = useState(false);
-
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || 'null');
 
@@ -18,10 +18,37 @@ export const VehiclesPage = () => {
       const res = await fetch(`http://localhost:8080/api/vehicles/${user.id}`);
       const data = await res.json();
       setVehicles(data);
+
+      const reminders = [];
+      data.forEach(v => {
+        const lastService = v.lastServiceMileage || 0;
+        if (v.mileage - lastService >= 10000) {
+          reminders.push({
+            id: v._id,
+            name: v.name,
+            diff: v.mileage - lastService
+          });
+        }
+      });
+
+      setNotifications(reminders);
     } catch (err) {
       console.error('Fetch vehicles error:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const confirmService = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:8080/api/vehicles/${id}/confirm-service`, {
+        method: 'POST'
+      });
+      if (res.ok) {
+        fetchVehicles();
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -30,24 +57,17 @@ export const VehiclesPage = () => {
   }, []);
 
   const exportPdf = (id) => {
-    window.open(
-      `http://localhost:8080/api/export/vehicle/${id}.pdf`,
-      '_blank'
-    );
+    window.open(`http://localhost:8080/api/export/vehicle/${id}.pdf`, '_blank');
   };
 
   const exportCsv = (id) => {
-    window.open(
-      `http://localhost:8080/api/export/vehicle/${id}.csv`,
-      '_blank'
-    );
+    window.open(`http://localhost:8080/api/export/vehicle/${id}.csv`, '_blank');
   };
 
   return (
     <main className={s.page}>
       <div className={s.headerRow}>
         <h1>Moje pojazdy</h1>
-
         <button
           className={s.addBtn}
           onClick={() => setIsAddOpen(true)}
@@ -56,6 +76,23 @@ export const VehiclesPage = () => {
           Dodaj pojazd
         </button>
       </div>
+
+      {notifications.length > 0 && (
+        <div className={s.notifications}>
+          <h3>Powiadomienia</h3>
+          {notifications.map((n) => (
+            <div key={n.id} className={s.notificationItem}>
+              <p>Pojazd {n.name}: zalecany przegląd (minęło {n.diff} km)</p>
+              <button 
+                onClick={() => confirmService(n.id)}
+                className={s.confirmBtn}
+              >
+                ✅ Zrobione
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <p className={s.empty}>Ładowanie...</p>

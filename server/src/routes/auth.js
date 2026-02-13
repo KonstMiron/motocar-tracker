@@ -5,7 +5,6 @@ import { User } from '../models/User.js';
 
 const router = express.Router();
 
-// POST /api/auth/register
 router.post('/register', async (req, res) => {
   console.log('>>> /api/auth/register called');
 
@@ -48,7 +47,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// POST /api/auth/login
 router.post('/login', async (req, res) => {
   console.log('>>> /api/auth/login called');
 

@@ -19,7 +19,6 @@ export const ExpenseChart = ({ vehicleId }) => {
     );
     const raw = await res.json();
 
-    // групуємо по місяцях
     const map = new Map();
 
     raw.forEach((e) => {
@@ -27,7 +26,7 @@ export const ExpenseChart = ({ vehicleId }) => {
       const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
         2,
         "0"
-      )}`; // 2025-03
+      )}`;
 
       const current = map.get(key) || 0;
       map.set(key, current + e.amount);
@@ -37,7 +36,7 @@ export const ExpenseChart = ({ vehicleId }) => {
       .sort(([a], [b]) => (a > b ? 1 : -1))
       .map(([key, amount]) => {
         const [year, month] = key.split("-");
-        const label = `${month}.${year}`; // 03.2025
+        const label = `${month}.${year}`;
 
         return { monthKey: key, monthLabel: label, amount };
       });

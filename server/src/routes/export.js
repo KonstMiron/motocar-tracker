@@ -27,7 +27,6 @@ const plDate = (d) => new Date(d).toLocaleDateString("pl-PL");
 const num2 = (v) => (v == null || Number.isNaN(Number(v)) ? "" : Number(v).toFixed(2));
 
 // -------------------- CSV --------------------
-// Один CSV, але з чіткими колонками. Кожен рядок має тип: mileage / fuel / expense.
 router.get("/vehicle/:id.csv", async (req, res) => {
   try {
     const { id } = req.params;
@@ -41,7 +40,6 @@ router.get("/vehicle/:id.csv", async (req, res) => {
       ExpenseEntry.find({ vehicleId: id }).sort({ date: -1 }).lean(),
     ]);
 
-    // Нормальні колонки: дата, тип, одометр, літри, ціна/л, сума заправки, категорія, сума витрати, опис, місце
     const rows = [
       ...mileage.map((e) => ({
         date: plDate(e.date),
@@ -86,16 +84,13 @@ router.get("/vehicle/:id.csv", async (req, res) => {
       })),
     ];
 
-    // Щоб завжди було по даті (як видно в Excel)
     rows.sort((a, b) => {
-      // pl-PL date -> dd.mm.yyyy. Перетворимо назад у Date для сорту
       const pa = a.date.split(".").reverse().join("-");
       const pb = b.date.split(".").reverse().join("-");
       return new Date(pb) - new Date(pa);
     });
 
     const parser = new Parser({
-      // BOM щоб Excel нормально відкрив UTF-8 (польські символи)
       withBOM: true,
       fields: [
         { label: "Data", value: "date" },
@@ -150,7 +145,6 @@ router.get("/vehicle/:id.pdf", async (req, res) => {
 
     doc = new PDFDocument({ margin: 40 });
 
-    // ✅ не даємо серверу падати на stream errors
     doc.on("error", (err) => {
       console.error("PDFKit error:", err);
       try { res.end(); } catch (_) {}
@@ -320,7 +314,6 @@ router.get("/vehicle/:id.pdf", async (req, res) => {
   } catch (err) {
     console.error("PDF export error:", err);
 
-    // ✅ якщо вже пішов стрім — не намагаємось відправляти JSON
     if (res.headersSent) {
       try {
         if (doc && !doc.ended) doc.end();
