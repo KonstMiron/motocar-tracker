@@ -9,13 +9,14 @@ import {
   CartesianGrid
 } from "recharts";
 import s from "./ExpenseChart.module.scss";
+import API_URL from '../../../../config';
 
 export const ExpenseChart = ({ vehicleId }) => {
   const [data, setData] = useState([]);
 
   const fetchExpenses = async () => {
     const res = await fetch(
-      `http://localhost:8080/api/vehicles/${vehicleId}/expenses`
+      `${API_URL}/api/vehicles/${vehicleId}/expenses`
     );
     const raw = await res.json();
 

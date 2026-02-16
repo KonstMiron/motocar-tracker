@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import s from './LoginPage.module.scss';
+import API_URL from '../../../../config';
 
 export const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -13,7 +14,7 @@ export const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:8080/api/auth/login', {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

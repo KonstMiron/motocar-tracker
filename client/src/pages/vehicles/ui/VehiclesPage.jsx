@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './VehiclesPage.module.scss';
 import { AddVehicleModal } from './AddVehicleModal';
+import API_URL from '../../../config';
 
 export const VehiclesPage = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -15,7 +16,7 @@ export const VehiclesPage = () => {
     try {
       if (!user) return;
 
-      const res = await fetch(`http://localhost:8080/api/vehicles/${user.id}`);
+      const res = await fetch(`${API_URL}/api/vehicles/${user.id}`);
       const data = await res.json();
       setVehicles(data);
 
@@ -41,7 +42,7 @@ export const VehiclesPage = () => {
 
   const confirmService = async (id) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/vehicles/${id}/confirm-service`, {
+      const res = await fetch(`${API_URL}/api/vehicles/${id}/confirm-service`, {
         method: 'POST'
       });
       if (res.ok) {
@@ -57,11 +58,11 @@ export const VehiclesPage = () => {
   }, []);
 
   const exportPdf = (id) => {
-    window.open(`http://localhost:8080/api/export/vehicle/${id}.pdf`, '_blank');
+    window.open(`${API_URL}/api/export/vehicle/${id}.pdf`, '_blank');
   };
 
   const exportCsv = (id) => {
-    window.open(`http://localhost:8080/api/export/vehicle/${id}.csv`, '_blank');
+    window.open(`${API_URL}/api/export/vehicle/${id}.csv`, '_blank');
   };
 
   return (

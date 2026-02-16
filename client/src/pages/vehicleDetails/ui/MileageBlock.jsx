@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import s from './MileageBlock.module.scss';
 import { AddMileageModal } from './AddMileageModal';
+import API_URL from '../../../config';
 
 export const MileageBlock = ({ vehicleId, onAdded }) => {
   const [entries, setEntries] = useState([]);
@@ -10,7 +11,7 @@ export const MileageBlock = ({ vehicleId, onAdded }) => {
   const fetchEntries = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/vehicles/${vehicleId}/mileage`
+        `${API_URL}/api/vehicles/${vehicleId}/mileage`
       );
       const data = await res.json();
       setEntries(data);

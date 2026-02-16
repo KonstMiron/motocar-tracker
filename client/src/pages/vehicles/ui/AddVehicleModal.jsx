@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import s from './AddVehicleModal.module.scss';
+import API_URL from '../../../config';
 
 export const AddVehicleModal = ({ onClose, onAdded }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -22,7 +23,7 @@ export const AddVehicleModal = ({ onClose, onAdded }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:8080/api/vehicles', {
+      const res = await fetch(`${API_URL}/api/vehicles`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

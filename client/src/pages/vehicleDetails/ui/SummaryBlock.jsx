@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import s from './SummaryBlock.module.scss';
+import API_URL from '../../../config';
 
 export const SummaryBlock = ({ vehicleId }) => {
   const [summary, setSummary] = useState(null);
 
   const fetchSummary = async () => {
-    const res = await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/summary`);
+    const res = await fetch(`${API_URL}/api/vehicles/${vehicleId}/summary`);
     const data = await res.json();
     setSummary(data);
   };

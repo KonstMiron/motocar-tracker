@@ -10,6 +10,7 @@ import { SummaryBlock } from './SummaryBlock';
 import { MileChart } from './charts/MileChart';
 import { FuelChart } from './charts/FuelChart';
 import { ExpenseChart } from './charts/ExpenseChart';
+import API_URL from '../../../config';
 
 export const VehicleDetailsPage = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ export const VehicleDetailsPage = () => {
 
   const fetchVehicle = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/vehicles/item/${id}`);
+      const res = await fetch(`${API_URL}/api/vehicles/item/${id}`);
       const data = await res.json();
       setVehicle(data);
     } catch (err) {
@@ -45,7 +46,7 @@ export const VehicleDetailsPage = () => {
 
   const handleDelete = async () => {
     try {
-      await fetch(`http://localhost:8080/api/vehicles/${vehicle._id}`, {
+      await fetch(`${API_URL}/api/vehicles/${vehicle._id}`, {
         method: 'DELETE',
       });
       window.location.href = '/vehicles';
@@ -86,14 +87,14 @@ export const VehicleDetailsPage = () => {
       <div className={s.actions}>
         <button
           className={s.secondary}
-          onClick={() => window.open(`http://localhost:8080/api/export/vehicle/${vehicle._id}.csv`, "_blank")}
+          onClick={() => window.open(`${API_URL}/api/export/vehicle/${vehicle._id}.csv`, "_blank")}
         >
           Export CSV
         </button>
 
         <button
           className={s.secondary}
-          onClick={() => window.open(`http://localhost:8080/api/export/vehicle/${vehicle._id}.pdf`, "_blank")}
+          onClick={() => window.open(`${API_URL}/api/export/vehicle/${vehicle._id}.pdf`, "_blank")}
         >
           Export PDF
         </button>

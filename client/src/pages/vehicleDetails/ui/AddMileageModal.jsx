@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import s from './AddMileageModal.module.scss';
+import API_URL from '../../../config';
 
 export const AddMileageModal = ({ vehicleId, onClose, onAdded }) => {
   const [form, setForm] = useState({
@@ -16,7 +17,7 @@ export const AddMileageModal = ({ vehicleId, onClose, onAdded }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/mileage`, {
+      const res = await fetch(`${API_URL}/api/vehicles/${vehicleId}/mileage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

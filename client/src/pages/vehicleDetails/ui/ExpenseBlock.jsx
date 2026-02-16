@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import s from './ExpenseBlock.module.scss';
 import { AddExpenseModal } from './AddExpenseModal';
+import API_URL from '../../../config';
 
 const categoryLabel = (cat) => {
   switch (cat) {
@@ -25,7 +26,7 @@ export const ExpenseBlock = ({ vehicleId }) => {
   const fetchEntries = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/vehicles/${vehicleId}/expenses`
+        `${API_URL}/api/vehicles/${vehicleId}/expenses`
       );
       const data = await res.json();
       setEntries(data);

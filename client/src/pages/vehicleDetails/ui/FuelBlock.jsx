@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import s from './FuelBlock.module.scss';
 import { AddFuelModal } from './AddFuelModal';
+import API_URL from '../../../config';
 
 export const FuelBlock = ({ vehicleId }) => {
   const [entries, setEntries] = useState([]);
@@ -10,7 +11,7 @@ export const FuelBlock = ({ vehicleId }) => {
   const fetchEntries = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/vehicles/${vehicleId}/fuel`
+        `${API_URL}/api/vehicles/${vehicleId}/fuel`
       );
       const data = await res.json();
       setEntries(data);

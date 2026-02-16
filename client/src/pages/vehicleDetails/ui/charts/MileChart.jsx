@@ -9,13 +9,14 @@ import {
   CartesianGrid
 } from "recharts";
 import s from "./MileChart.module.scss";
+import API_URL from '../../../../config';
 
 export const MileChart = ({ vehicleId }) => {
   const [data, setData] = useState([]);
 
   const fetchMileage = async () => {
     const res = await fetch(
-      `http://localhost:8080/api/vehicles/${vehicleId}/mileage`
+      `${API_URL}/api/vehicles/${vehicleId}/mileage`
     );
     const raw = await res.json();
 

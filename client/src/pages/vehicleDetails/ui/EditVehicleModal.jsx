@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import s from './EditVehicleModal.module.scss';
+import API_URL from '../../../config';
 
 export const EditVehicleModal = ({ vehicle, onClose, onUpdated }) => {
   const [form, setForm] = useState({
@@ -21,7 +22,7 @@ export const EditVehicleModal = ({ vehicle, onClose, onUpdated }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/api/vehicles/${vehicle._id}`,
+        `${API_URL}/api/vehicles/${vehicle._id}`,
         {
           method: 'PUT',
           headers: {

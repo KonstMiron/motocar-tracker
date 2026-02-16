@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import s from './AddFuelModal.module.scss';
+import API_URL from '../../../config';
 
 export const AddFuelModal = ({ vehicleId, onClose, onAdded }) => {
   const [form, setForm] = useState({
@@ -24,7 +25,7 @@ export const AddFuelModal = ({ vehicleId, onClose, onAdded }) => {
     e.preventDefault();
 
     try {
-      await fetch(`http://localhost:8080/api/vehicles/${vehicleId}/fuel`, {
+      await fetch(`${API_URL}/api/vehicles/${vehicleId}/fuel`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

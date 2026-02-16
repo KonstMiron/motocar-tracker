@@ -12,13 +12,14 @@ import {
   Legend
 } from "recharts";
 import s from "./FuelChart.module.scss";
+import API_URL from '../../../../config';
 
 export const FuelChart = ({ vehicleId }) => {
   const [data, setData] = useState([]);
 
   const fetchFuel = async () => {
     const res = await fetch(
-      `http://localhost:8080/api/vehicles/${vehicleId}/fuel`
+      `${API_URL}/api/vehicles/${vehicleId}/fuel`
     );
     const raw = await res.json();
 
