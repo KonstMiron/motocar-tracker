@@ -2,27 +2,29 @@ services:
   # Backend API Service
   - type: web
     name: motocar-tracker-api
-    runtime: node
+    env: node
+    plan: free
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
-        sync: false  # You'll add this in Render dashboard
+        sync: false
       - key: JWT_SECRET
-        generateValue: true  # Render will auto-generate
+        generateValue: true
       - key: PORT
         value: 8080
       - key: CLIENT_URL
-        sync: false  # You'll add your frontend URL here
+        sync: false
 
   # Frontend Static Site
   - type: web
     name: motocar-tracker-frontend
-    runtime: static
+    env: static
+    plan: free
     buildCommand: cd client && npm install && npm run build
     staticPublishPath: client/dist
     envVars:
       - key: VITE_API_URL
-        sync: false  # You'll add your backend URL here
+        sync: false
